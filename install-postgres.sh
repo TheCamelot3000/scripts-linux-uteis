@@ -23,4 +23,9 @@ echo
 # Cria um usuário com o nome e senha fornecidos no PostgreSQL com privilégios de superusuário
 sudo -u postgres psql -c "CREATE USER $username WITH SUPERUSER CREATEDB CREATEROLE PASSWORD '$password';"
 
-echo "O PostgreSQL 14 foi instalado e configurado. O usuário '$username' foi criado com privilégios de superusuário."
+# Cria um banco de dados com o nome do usuário e concede permissões apropriadas
+sudo -u postgres psql -c "CREATE DATABASE $username;"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $username TO $username;"
+
+echo "O PostgreSQL 14 foi instalado e configurado. O usuário '$username' foi criado com privilégios de superusuário, e o banco de dados '$username' foi criado com as mesmas permissões."
+
